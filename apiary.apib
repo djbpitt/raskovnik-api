@@ -1,0 +1,111 @@
+FORMAT: 1A
+HOST: http://api.raskovnik.org/v1
+
+# Raskovnik API
+Raskovnik API is a Serbian Dictionary Web Service developed at the Belgrade Center for Digital Humanities. 
+
+This is a work in progress and subject to significant change.
+
+##http vs. https?
+Will use https. Not set up yet.
+
+##Content-Type Negotiation
+Raskovnik API supports both XML and JSON via a content negotiation mechanism using HTTP headers.
+The client must send an appropriate Accept header (either application/json or application/xml) with each call. 
+Calls without an Accept header result in an error.
+
+The same values should be used in the Content-Type HTTP header when submitting data in the request body 
+(POST and PUT methods). 
+
+##Data vs. Metadata?
+
+The Raskovnik API distinguishes between the actual data returned in the body of the reponse (e.g. word forms, morphosyntactic annotation etc.) and resource metadata (e.g. limits, offsets etc.) which will returned in the HTTP header.
+
+In this intitial development stage, we will use custom HTTP headers for pagination etc. but are likely to eventually opt for the Link header in accordance with [RFC5988](http://tools.ietf.org/html/rfc5988#page-6).
+
+
+# Entries [/entries/{lemma}?fields=dictionary,list_only,limit,offset,created_since,modified_since]
+Resources representing forms, lemmas and
+morphsyntactic specifications of individual word forms.
+
+# Retrieve Entries [GET]
+
++ Parameters
+
+    + lemma (optional, string) ... The requested lemma. If no lemma is provided, then all entries from the db are returned, taking however into consideration limits and offsets. 
+    (We will have to impose maximum limits etc. but we can deal with that later when we introduce authentication etc.)
+    + dictionary = `all` (optional, sting) ... 
+    + list_only = `false` (optional, boolean) ... If set to true, returns only lemmas and nothing else. This is useful for creating indexes & search autocomplete. 
+    + limit = `10` (optional, number) ... The maximum number of results to return.
+    + offset = `0` (optional, number) ... The pagination of results to return.
+    + created_since = `0` (optional, number) ... Either zero or the Unix timestamp.
+    + modified_since = `0` (optional, number) ... Either zero or the Unix timestamp.
+
+
++ Response 200 (application/json)
+    
+    + Headers
+
+                X-Total-Count: 14
+                X-Limit: 10
+                X-Offset: 0
+           
+    + Body
+
+            [
+                {
+                    "id": 1, 
+                    "form": "руке", 
+                    "lemma": "рука",     
+                    "ana": "Ngsjdjf"
+                }, {
+                    "id": 2, 
+                    "form": "руке", 
+                    "lemma": "рука",     
+                    "ana": "Nnpkdjf"
+                }
+            ]
+
++ Response 200 (application/xml)
+    
+    + Headers
+            
+                X-Total-Count: 14
+                X-Limit: 10
+                X-Offset: 0
+
+    + Body
+
+            <data>
+                <forms>
+                    <id>1</id>
+                    <form>руке</form>
+                    <lemma>рука</lemma>
+                    <ana>Nasjdjf</ana>
+                </forms>
+                <forms>
+                    <id>2</id>
+                    <form>руке</form>
+                    <lemma>рука</lemma>
+                    <ana>Nnpkdjf</ana>
+                </forms>
+            </data>
+
+
++ Response 400 
+
+    Indicates a bad request (e.g. wrong parameter, missing accept header etc.)
+
+    + Body 
+    
++ Response 404
+
+    The requested word form does not exist in the database.
+    
+    + Body
+    
++ Response 503
+
+    The server is currently unable to handle the request.
+    
+    + Body
