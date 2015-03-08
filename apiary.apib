@@ -23,6 +23,29 @@ The Raskovnik API distinguishes between the actual data returned in the body of 
 
 In this intitial development stage, we will use custom HTTP headers for pagination etc. but are likely to eventually opt for the Link header in accordance with [RFC5988](http://tools.ietf.org/html/rfc5988#page-6).
 
+# Dictionaries [/dictionaries/meta?fields=dictionary,biblio]
+Bibliographic information about dictionaries
+from the TEI Header.
+
+# Retrieve Dictionaries [GET]
+
++ Parameters
+    + dictionary = `all` (optional, string). Retrieves resources
+    for all or specific dictionaries based on the dicitonary id.
+    + biblio = `true` (optional, string). If `true`, retrieves bibliographic information;
+    if `false`, retrieves a list of alphabet letters from the dictionary/dictionaries.
+    
+    
+
++ Response 200 (application/xml)
+    
+    + Body
+
+            <data>
+                <bibl></bibl>
+                <bibl></bibl>
+                <bibl></bibl>
+            </data>
 
 # Entries [/entries/{lemma}?fields=dictionary,list_only,limit,offset,created_since,modified_since,key]
 Resources representing forms, lemmas and
@@ -32,8 +55,10 @@ morphsyntactic specifications of individual word forms.
 
 + Parameters
 
-    + lemma (optional, string) ... The requested lemma. If no lemma is provided, then all entries from the db are returned, taking however into consideration limits and offsets. 
-    (We will have to impose maximum limits etc. but we can deal with that later when we introduce authentication etc.)
+    + lemma (optional, string) ... The requested lemma. If no lemma is provided,
+    then all entries from the db are returned, taking however into consideration
+    limits and offsets. (We will have to impose maximum limits etc. but we can 
+    deal with that later when we introduce authentication etc.)
     + dictionary = `all` (optional, sting) ... 
     + list_only = `false` (optional, boolean) ... If set to true, returns only lemmas and nothing else. This is useful for creating indexes & search autocomplete. 
     + limit = `10` (optional, number) ... The maximum number of results to return.
@@ -52,7 +77,7 @@ morphsyntactic specifications of individual word forms.
                 X-Offset: 0
            
     + Body
-
+    
             [
                 {
                     "id": 1, 
