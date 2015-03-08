@@ -32,7 +32,7 @@ from the TEI Header.
 + Parameters
     + dictionary = `all` (optional, string). Retrieves resources
     for all or specific dictionaries based on the dicitonary id.
-    + biblio = `true` (optional, string). If `true`, retrieves bibliographic information;
+    + biblio = `true` (optional, boolean). If `true`, retrieves bibliographic information;
     if `false`, retrieves a list of alphabet letters from the dictionary/dictionaries.
     
     
@@ -47,7 +47,7 @@ from the TEI Header.
                 <bibl></bibl>
             </data>
 
-# Entries [/entries/{lemma}?fields=dictionary,list_only,limit,offset,created_since,modified_since,key]
+# Entries [/entries/{lemma}?fields=dictionary,list_only,limit,offset,letter,created_since,modified_since,key]
 Resources representing forms, lemmas and
 morphsyntactic specifications of individual word forms.
 
@@ -60,12 +60,18 @@ morphsyntactic specifications of individual word forms.
     limits and offsets. (We will have to impose maximum limits etc. but we can 
     deal with that later when we introduce authentication etc.)
     + dictionary = `all` (optional, sting) ... 
-    + list_only = `false` (optional, boolean) ... If set to true, returns only lemmas and nothing else. This is useful for creating indexes & search autocomplete. 
+    + list_only = `false` (optional, boolean) ... If set to true, returns only 
+    lemmas and nothing else. This is useful for creating indexes, navigation trees
+    & search autocomplete. 
     + limit = `10` (optional, number) ... The maximum number of results to return.
     + offset = `0` (optional, number) ... The pagination of results to return.
+    + letter = `all` (optional, string) ... If set to `all`, returns entries no
+    matter what their starting letter is. If set to a particular letter or letters, 
+    returns only entries starting with that particular letter or letters. 
     + created_since = `0` (optional, number) ... Either zero or the Unix timestamp.
     + modified_since = `0` (optional, number) ... Either zero or the Unix timestamp.
-    + key (required, string) ... The API key. If not supplied, or not matched, the API returns an Error 400. 
+    + key (required, string) ... The API key. If not supplied, or not matched, the
+    API returns an Error 400. 
 
 
 + Response 200 (application/json)
