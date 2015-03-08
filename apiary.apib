@@ -47,7 +47,7 @@ from the TEI Header.
                 <bibl></bibl>
             </data>
 
-# Entries [/entries/{lemma}?fields=dictionary,list_only,limit,offset,letter,created_since,modified_since,key]
+# Entries [/entries/{lemma}?fields=dictionary,list_only,limit,offset,letters,created_since,modified_since,key]
 Resources representing forms, lemmas and
 morphsyntactic specifications of individual word forms.
 
@@ -65,7 +65,7 @@ morphsyntactic specifications of individual word forms.
     & search autocomplete. 
     + limit = `10` (optional, number) ... The maximum number of results to return.
     + offset = `0` (optional, number) ... The pagination of results to return.
-    + letter = `all` (optional, string) ... If set to `all`, returns entries no
+    + letters = `all` (optional, string) ... If set to `all`, returns entries no
     matter what their starting letter is. If set to a particular letter or letters, 
     returns only entries starting with that particular letter or letters. 
     + created_since = `0` (optional, number) ... Either zero or the Unix timestamp.
