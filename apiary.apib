@@ -23,17 +23,21 @@ The Raskovnik API distinguishes between the actual data returned in the body of 
 
 In this intitial development stage, we will use custom HTTP headers for pagination etc. but are likely to eventually opt for the Link header in accordance with [RFC5988](http://tools.ietf.org/html/rfc5988#page-6).
 
-# Dictionaries [/dictionaries?fields=dictid,biblio,divs]
+# Dictionaries [/dictionaries.{format}?fields=dictid,biblio,divs]
 Bibliographic information about dictionaries
 from the TEI Header.
 
 # Retrieve Dictionaries [GET]
 
 + Parameters
-    + dictid = = `all` (optional, enum[string]) ... Retrieves TEI header for all or specific dictionaries based on comma-separated
+    + format = `xml` (required, string) ... xml or json.
+    + dictid = `all` (optional, enum[string]) ... Retrieves resources
+    for all or specific dictionaries based on comma-separated
     dictionary ids, for instance: `dictid=VSK.SR,MV.RGP`.
+    + bibl = `true` (optional, boolean) ... Retrieves bibliographic
+    information from the TEI header for selected dictionaries.
     + divs = `false` (optional, boolean)... If `true`, retrieves,
-    list of ids for each macrostructural division.  
+    list of macrostructural division ids for each selected dictionary
     
     
 
@@ -41,10 +45,17 @@ from the TEI Header.
     
     + Body
 
-            <data>
-                <bibl></bibl>
-                <bibl></bibl>
-                <bibl></bibl>
+            <dictionaries>
+                <dictionary>
+                    <dictid></dictid>
+                    <bibl></bibl>
+                    <divs></divs>
+                </dictionary>
+                <dictionary>
+                    <dictid></dictid>
+                    <bibl></bibl>
+                    <divs></divs>
+                </dictionary>
             </data>
 
 # Entries [/entries/{lemma}?fields=dictid,list_only,limit,offset,letters,created_since,modified_since,key]
