@@ -23,15 +23,15 @@ The Raskovnik API distinguishes between the actual data returned in the body of 
 
 In this intitial development stage, we will use custom HTTP headers for pagination etc. but are likely to eventually opt for the Link header in accordance with [RFC5988](http://tools.ietf.org/html/rfc5988#page-6).
 
-# Dictionaries [/dictionaries/meta?fields=dictionary,biblio]
+# Dictionaries [/dictionaries/meta?fields=dictid,biblio]
 Bibliographic information about dictionaries
 from the TEI Header.
 
 # Retrieve Dictionaries [GET]
 
 + Parameters
-    + dictionary = `all` (optional, string). Retrieves resources
-    for all or specific dictionaries based on the dicitonary id.
+    + dictid = `all` (optional, string). Retrieves resources
+    for all or one specific dictionary based on the dicitonary id.
     + biblio = `true` (optional, boolean). If `true`, retrieves bibliographic information;
     if `false`, retrieves a list of alphabet letters from the dictionary/dictionaries.
     
@@ -59,7 +59,9 @@ morphsyntactic specifications of individual word forms.
     then all entries from the db are returned, taking however into consideration
     limits and offsets. (We will have to impose maximum limits etc. but we can 
     deal with that later when we introduce authentication etc.)
-    + dictionary = `all` (optional, sting) ... 
+    + dictid = `all` (optional, sting) ... Retrieves resources
+    for all or specific dictionaries based on their ids. Multiple ids
+    should comma-separated, For instance `dictid=VSK.SR,MV.RGP`
     + list_only = `false` (optional, boolean) ... If set to true, returns only 
     lemmas and nothing else. This is useful for creating indexes, navigation trees
     & search autocomplete. 
