@@ -23,19 +23,17 @@ The Raskovnik API distinguishes between the actual data returned in the body of 
 
 In this intitial development stage, we will use custom HTTP headers for pagination etc. but are likely to eventually opt for the Link header in accordance with [RFC5988](http://tools.ietf.org/html/rfc5988#page-6).
 
-# Dictionaries [/dictionaries/meta?fields=dictid,biblio]
+# Dictionaries [/dictionaries?fields=dictid,biblio,divs]
 Bibliographic information about dictionaries
 from the TEI Header.
 
 # Retrieve Dictionaries [GET]
 
 + Parameters
-    + dictid = `all` (optional, string). Retrieves resources
-    for all or one specific dictionary based on the dicitonary 
-    id.  Multiple ids must be comma-separated, For instance 
-    `dictid=VSK.SR,MV.RGP`
-    + biblio = `true` (optional, boolean). If `true`, retrieves bibliographic information;
-    if `false`, retrieves a list of alphabet letters from the dictionary/dictionaries.
+    + dictid = = `all` (optional, enum[string]) ... Retrieves TEI header for all or specific dictionaries based on comma-separated
+    dictionary ids, for instance: `dictid=VSK.SR,MV.RGP`.
+    + divs = `false` (optional, boolean)... If `true`, retrieves,
+    list of ids for each macrostructural division.  
     
     
 
